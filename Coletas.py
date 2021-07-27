@@ -23,13 +23,13 @@ class Coletas:
         # Lista veiculos ativos
         try:
             print("Iniciando Consulta Veiculo .............. ")
-            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles?_limit=500',
+            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles?_limit=1000',
             headers=headers, timeout = 5)
 
             data = veiculos.json()
             v = json.dumps(data)
-            tags = ['{"Data": ', ', "Limit": 500, ', ' "Offset": 1, ', ' "IsLastPage": ', 'false}']
-            veiculos_json = v.replace('{"Data": ', "").replace(', "Limit": 500, "Offset": 1, "IsLastPage": false}', "")
+            tags = ['{"Data": ', ', "Limit": 1000, ', ' "Offset": 1, ', ' "IsLastPage": ', 'false}']
+            veiculos_json = v.replace('{"Data": ', "").replace(', "Limit": 1000, "Offset": 1, "IsLastPage": false}', "")
             # veiculos_json = v.replace(tags, "")
             aList = json.loads(veiculos_json)
             print(aList)
@@ -53,14 +53,14 @@ class Coletas:
         # POSITIONS
         try:
             print("Iniciando Consulta position ......... ")
-            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles/'+ code + '/positions?_limit=500',headers=headers, timeout=5)
+            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles/'+ code + '/positions?_limit=1000',headers=headers, timeout=5)
 
             data1 = veiculos.json()
             autorizados = json.dumps(data1)
             #print("======================== "+autorizados)
-            tags = [', "Limit": 500, "Offset": 0, "IsLastPage": true}']
+            tags = [', "Limit": 1000, "Offset": 0, "IsLastPage": true}']
             veiculos_json = autorizados.replace('{"Data": ', "").replace(
-                ', "Limit": 500, ', "").replace('"Offset": 0, "IsLastPage": true}', "").replace(
+                ', "Limit": 1000, ', "").replace('"Offset": 0, "IsLastPage": true}', "").replace(
                 '"Offset": 0, "IsLastPage": false}', "")
             # veiculos_json = autorizados.replace(tags, "")
             aList = json.loads(veiculos_json)
