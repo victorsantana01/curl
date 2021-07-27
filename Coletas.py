@@ -13,7 +13,7 @@ from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
 class Coletas:
-    
+    #Busca Veiculos
     def getVeiculos(self):
         #contas = Conta()
         headers = {
