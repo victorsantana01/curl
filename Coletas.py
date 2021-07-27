@@ -115,7 +115,7 @@ class Coletas:
             latitude = str(i['Latitude'])
             longitude = str(i['Longitude'])
             connection = mysql.connector.connect(
-                host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
+                host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
             print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude)
