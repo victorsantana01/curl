@@ -12,8 +12,9 @@ import time
 from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
-limit = 1000
+limit = '50000'
 class Coletas:
+
     #Busca Veiculos
     def getVeiculos(self):
         #contas = Conta()
