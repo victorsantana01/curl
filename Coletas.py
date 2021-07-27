@@ -53,14 +53,14 @@ class Coletas:
         # POSITIONS
         try:
             print("Iniciando Consulta position ......... ")
-            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles/'+ code + '/positions?_limit=200',headers=headers, timeout=5)
+            veiculos = requests.get('https://aapi3.autotrac-online.com.br/aticapi/v1/accounts/6064/vehicles/'+ code + '/positions?_limit=500',headers=headers, timeout=5)
 
             data1 = veiculos.json()
             autorizados = json.dumps(data1)
             #print("======================== "+autorizados)
-            tags = [', "Limit": 200, "Offset": 0, "IsLastPage": true}']
+            tags = [', "Limit": 500, "Offset": 0, "IsLastPage": true}']
             veiculos_json = autorizados.replace('{"Data": ', "").replace(
-                ', "Limit": 200, ', "").replace('"Offset": 0, "IsLastPage": true}', "").replace(
+                ', "Limit": 500, ', "").replace('"Offset": 0, "IsLastPage": true}', "").replace(
                 '"Offset": 0, "IsLastPage": false}', "")
             # veiculos_json = autorizados.replace(tags, "")
             aList = json.loads(veiculos_json)
