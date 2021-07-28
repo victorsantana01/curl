@@ -116,12 +116,13 @@ class Coletas:
             distancia = str(i['Distance'])
             latitude = str(i['Latitude'])
             longitude = str(i['Longitude'])
+            velocidade = str(i['Velocity'])
             connection = mysql.connector.connect(
                 host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
-            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude)
-            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"')")
+            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade)
+            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"')")
             connection.commit()
 
 colet = Coletas()
