@@ -12,7 +12,7 @@ import time
 from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
-limit = '50000'
+limit = '200'
 class Coletas:
 
     #Busca Veiculos
