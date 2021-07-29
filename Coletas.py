@@ -12,7 +12,7 @@ import time
 from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
-limit = '200'
+limit = '1000'
 class Coletas:
 
     #Busca Veiculos
@@ -117,11 +117,12 @@ class Coletas:
             latitude = str(i['Latitude'])
             longitude = str(i['Longitude'])
             velocidade = str(i['Velocity'])
+            UF = str(i['UF'])
             connection = mysql.connector.connect(
                 host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
-            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade)
+            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade+ '| UF: ' + UF)
             cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"')")
             connection.commit()
 
