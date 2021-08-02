@@ -12,7 +12,7 @@ import time
 from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
-limit = '1000'
+limit = '5000'
 class Coletas:
 
     #Busca Veiculos
@@ -120,6 +120,7 @@ class Coletas:
             UF = str(i['UF'])
             connection = mysql.connector.connect(
                 host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
+                #host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
             print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade+ '| UF: ' + UF)
