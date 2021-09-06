@@ -75,12 +75,14 @@ class Coletas:
                     ignicao = "Off"
                 referencia = i['Landmark']
                 equipamento = i['VehicleAddress']
+                cidade = i['County']
                 odometro = i['Odometer']
                 odometro = str(odometro)
                 hora = i['PositionTime']
                 hora = str(hora)
                 hora = hora.replace("T", " ").replace("+", ":")
                 #print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora)
+                
             print("Consulta de position com SUCESSO PLACA: "+placa)
 
 
@@ -118,14 +120,14 @@ class Coletas:
             longitude = str(i['Longitude'])
             velocidade = str(i['Velocity'])
             UF = str(i['UF'])
-            cidade = i['city']
+            cidade = str(i['County'])
             connection = mysql.connector.connect(
                 host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
                 #host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
             print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade+ '| UF: ' + UF+ '| city: ' + cidade)
-            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"')")
+            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`,`city`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"', '"+cidade+"')")
             connection.commit()
 
 colet = Coletas()
