@@ -75,7 +75,7 @@ class Coletas:
                     ignicao = "Off"
                 referencia = i['Landmark']
                 equipamento = i['VehicleAddress']
-                cidade = i['County']
+                cidade = str(i['County'])
                 odometro = i['Odometer']
                 odometro = str(odometro)
                 hora = i['PositionTime']
