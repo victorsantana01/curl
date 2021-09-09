@@ -121,6 +121,7 @@ class Coletas:
             velocidade = str(i['Velocity'])
             UF = str(i['UF'])
             cidade = str(i['County'])
+            cidade = cidade.replace("'"," ")
             connection = mysql.connector.connect(
                 host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
                 #host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
