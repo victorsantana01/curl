@@ -1,5 +1,8 @@
 from cgitb import reset
-
+from datetime import datetime, timedelta
+import datetime
+from turtle import left
+from xmlrpc.client import DateTime
 import requests
 import json
 
@@ -12,7 +15,7 @@ import time
 from sys import exit
 import asyncio
 url = 'https://aapi3.autotrac-online.com.br/aticapi/v1/accounts'
-limit = '5000'
+limit = '500'
 class Coletas:
 
     #Busca Veiculos
@@ -112,6 +115,13 @@ class Coletas:
             hora = i['PositionTime']
             hora = str(hora)
             hora = hora.replace("T", " ").replace("+", ":")
+            hora = hora[:19]
+            
+
+            datetime_object = datetime.datetime.strptime(hora, '%Y-%m-%d %H:%M:%S')   
+            td = timedelta(hours=3)
+            horaAjustada = datetime_object - td
+            horaAjustada = str(horaAjustada)
             referencia = i['Landmark']
             referencia = referencia.replace("'","")
             equipamento = i['VehicleAddress']
@@ -123,12 +133,12 @@ class Coletas:
             cidade = str(i['County'])
             cidade = cidade.replace("'"," ")
             connection = mysql.connector.connect(
-                host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
-                #host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
+                #host='rvi01.chr71odbxvno.sa-east-1.rds.amazonaws.com', user='admin', password='auto.sup', database='autotrac_bd', charset='utf8')
+                host='localhost', user='root', password='auto.sup', database='autotrac_bd', charset='utf8')
             cursor = connection.cursor(dictionary=True)
 
-            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade+ '| UF: ' + UF+ '| city: ' + cidade)
-            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`,`city`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+hora+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"', '"+cidade+"')")
+            print(placa + '| Ignição: ' + ignicao + '| Odometro: ' + odometro + '| Horario: ' + hora+ '| HORA_AJUSTADA : ' + horaAjustada+ '| referencia: ' + referencia+ '| Equipamento: ' + equipamento+ '| lat: ' + latitude+ '| Long: ' + longitude+ '| VELOCIDADE: ' + velocidade+ '| UF: ' + UF+ '| city: ' + cidade)
+            cursor.execute("INSERT IGNORE INTO `autotrac_bd`.`position` (`placa`, `equipamento`, `odomentro`, `ignicao`,`position_time`, `referencia`, `latitude`,`longitude`,`distancia`,`velocidade`,`city`) VALUES ('"+placa+"', '"+equipamento+"', '"+odometro+"', '"+ignicao+"', '"+horaAjustada+"', '"+referencia+"', '"+latitude+"', '"+longitude+"', '"+distancia+"', '"+velocidade+"', '"+cidade+"')")
             connection.commit()
 
 colet = Coletas()
